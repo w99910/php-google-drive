@@ -1,0 +1,21 @@
+{
+    "name": "zlt/php-google-drive",
+    "description": "Easy-To-Use PHP Library For Google Drive",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Zlt\\PhpGoogleDrive\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Zaw Lin Tun",
+            "email": "zawlintun@utycc.edu.mm"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "google/apiclient": "^2.12"
+    }
+}
