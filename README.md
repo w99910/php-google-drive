@@ -14,10 +14,12 @@
   $service = new GoogleDriveService($config);
   ```
 
+> If you don't know how to find the credentials i.e, clientId, clientSecret, refreshToken, read [here](https://github.com/ivanvermeyen/laravel-google-drive-demo/blob/master/README.md#create-your-google-drive-api-keys).
+
 - ## Usage
 
 - ### Creating Content
-  Use `put' method which accepts three parameters:
+  Use `put` method which accepts three parameters:
     - `content` - contents to be stored
     - `fileName` - filename of content to be stored
     - `dir` - If not specified, file will be stored under root. Otherwise, file will be stored under specifed dir.
@@ -28,13 +30,24 @@
   ```
 
 - ### Creating Dir
-  Use `makeDir` which accepts two parameters:
+  Use `makeDirectory` which accepts two parameters:
     - `folderName` - folderName
     - `dir` - If not specified, folder will be created under root. Otherwise, folder will be created under specifed dir.
   ```php
-  $service->makeDir('New Folder');
+  $service->makeDirectory('New Folder');
     
-  $service->makeDir('New Folder Under Specified Dir','12sdf_sdfjopwoeriupsdf')
+  $service->makeDirectory('New Folder Under Specified Dir','12sdf_sdfjopwoeriupsdf')
+  ```
+
+- ### Copy File
+  Use `copy` which accepts three parameters:
+    - `fromId` - fileId
+    - `fileName` - fileName
+    - `dir` - If not specified, folder will be created under root. Otherwise, folder will be created under specifed dir.
+  ```php
+  $service->copy('1kojo32uoiuo123','new file.txt');
+    
+  $service->copy('1kojo32uoiuo123','new file.txt','12sdf_sdfjopwoeriupsdf')
   ```
 
 - ### List Contents

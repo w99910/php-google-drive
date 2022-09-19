@@ -67,6 +67,19 @@ class GoogleDriveService
         }
     }
 
+    public function get(string $fileId): Drive\DriveFile
+    {
+        return $this->service->files->get($fileId);
+    }
+
+    public function copy(string $fromId, string $fileName, $dir = null): string
+    {
+        $fileMetadata = new Drive\DriveFile(array(
+            'name' => $fileName,
+            'parents' => $dir ? array($dir) : null,));
+        return $this->service->files->copy($fromId, $fileMetadata)->id;
+    }
+
     public function put($content, $fileName, $dir = null): string
     {
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -85,7 +98,7 @@ class GoogleDriveService
             'fields' => 'id'))->id;
     }
 
-    public function makeDir($folderName, $dir = null): string
+    public function makeDirectory($folderName, $dir = null): string
     {
         $fileMetadata = new Drive\DriveFile(array(
             'name' => $folderName,
