@@ -25,7 +25,7 @@ class GoogleDriveService
         $client->setScopes(Drive::DRIVE);
         $client->setClientId($config->clientId);
         $client->setClientSecret($config->clientSecret);
-//        $client->set
+        //        $client->set
         $client->refreshToken($config->refreshToken);
         $client->setAccessType('online');
         $this->service = new Drive($client);
@@ -67,16 +67,19 @@ class GoogleDriveService
         }
     }
 
-    public function get(string $fileId): Drive\DriveFile
+    public function get(string $fileId, array $params = []): Drive\DriveFile
     {
-        return $this->service->files->get($fileId);
+        return $this->service->files->get($fileId, $params);
     }
 
     public function copy(string $fromId, string $fileName, $dir = null): string
     {
-        $fileMetadata = new Drive\DriveFile(array(
-            'name' => $fileName,
-            'parents' => $dir ? array($dir) : null,));
+        $fileMetadata = new Drive\DriveFile(
+            array(
+                'name' => $fileName,
+                'parents' => $dir ? array($dir) : null,
+            )
+        );
         return $this->service->files->copy($fromId, $fileMetadata)->id;
     }
 
@@ -88,24 +91,34 @@ class GoogleDriveService
         if (in_array($extension, $this->extensionToMime)) {
             $mimeType = $this->extensionToMime[$extension];
         }
-        $fileMetadata = new Drive\DriveFile(array(
-            'name' => $fileName,
-            'parents' => $dir ? array($dir) : null,
-            'mimeType' => $mimeType));
+        $fileMetadata = new Drive\DriveFile(
+            array(
+                'name' => $fileName,
+                'parents' => $dir ? array($dir) : null,
+                'mimeType' => $mimeType
+            )
+        );
         return $this->service->files->create($fileMetadata, array(
             'data' => $content,
             'uploadType' => 'multipart',
-            'fields' => 'id'))->id;
+            'fields' => 'id'
+        )
+        )->id;
     }
 
     public function makeDirectory($folderName, $dir = null): string
     {
-        $fileMetadata = new Drive\DriveFile(array(
-            'name' => $folderName,
-            'parents' => $dir ? array($dir) : null,
-            'mimeType' => 'application/vnd.google-apps.folder'));
+        $fileMetadata = new Drive\DriveFile(
+            array(
+                'name' => $folderName,
+                'parents' => $dir ? array($dir) : null,
+                'mimeType' => 'application/vnd.google-apps.folder'
+            )
+        );
         return $this->service->files->create($fileMetadata, array(
-            'fields' => 'id'))->id;
+            'fields' => 'id'
+        )
+        )->id;
     }
 
     /**
