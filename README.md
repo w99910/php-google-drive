@@ -29,7 +29,7 @@
   $service->put('This is text will be stored under specified dir','example.txt','12sdf_sdfjopwoeriupsdf')
   ```
 
-  - ### Getting File
+- ### Getting File
   Use `get` method which accepts two parameters and return `Google\Drive\DriveFile` or `GuzzleHttp\Psr7\Response`
     - `fileName` - filename of content to be stored
     - `params` - If not specified, empty array is passed.
@@ -43,7 +43,7 @@
   ])
   ```
 
-  - ### Getting File Content
+- ### Getting File Content
   Use `getContent` method which return `GuzzleHttp\Psr7\Response`. 
     - `fileName` - filename of content to be stored
   ```php
