@@ -29,6 +29,27 @@
   $service->put('This is text will be stored under specified dir','example.txt','12sdf_sdfjopwoeriupsdf')
   ```
 
+  - ### Getting File
+  Use `get` method which accepts two parameters and return `Google\Drive\DriveFile` or `GuzzleHttp\Psr7\Response`
+    - `fileName` - filename of content to be stored
+    - `params` - If not specified, empty array is passed.
+  ```php
+  $service->get('xxxxxxxxxxxxx');
+
+  // or
+
+  $service->get('xxxxxxxxxxxxx', [
+    // pass parameters
+  ])
+  ```
+
+  - ### Getting File Content
+  Use `getContent` method which return `GuzzleHttp\Psr7\Response`. 
+    - `fileName` - filename of content to be stored
+  ```php
+  $service->getContent('xxxxxxxxxxxxx');
+  ```  
+
 - ### Creating Dir
   Use `makeDirectory` which accepts two parameters:
     - `folderName` - folderName

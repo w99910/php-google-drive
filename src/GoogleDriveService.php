@@ -67,9 +67,14 @@ class GoogleDriveService
         }
     }
 
-    public function get(string $fileId, array $params = []): Drive\DriveFile
+    public function get(string $fileId, array $params = []): Drive\DriveFile|\GuzzleHttp\Psr7\Response
     {
         return $this->service->files->get($fileId, $params);
+    }
+
+    public function getContent(string $fileId): \GuzzleHttp\Psr7\Response
+    {
+        return $this->service->files->get($fileId, ['alt' => 'media']);
     }
 
     public function copy(string $fromId, string $fileName, $dir = null): string
@@ -98,11 +103,13 @@ class GoogleDriveService
                 'mimeType' => $mimeType
             )
         );
-        return $this->service->files->create($fileMetadata, array(
-            'data' => $content,
-            'uploadType' => 'multipart',
-            'fields' => 'id'
-        )
+        return $this->service->files->create(
+            $fileMetadata,
+            array(
+                'data' => $content,
+                'uploadType' => 'multipart',
+                'fields' => 'id'
+            )
         )->id;
     }
 
@@ -115,9 +122,11 @@ class GoogleDriveService
                 'mimeType' => 'application/vnd.google-apps.folder'
             )
         );
-        return $this->service->files->create($fileMetadata, array(
-            'fields' => 'id'
-        )
+        return $this->service->files->create(
+            $fileMetadata,
+            array(
+                'fields' => 'id'
+            )
         )->id;
     }
 
